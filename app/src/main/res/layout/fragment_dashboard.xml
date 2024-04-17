@@ -51,5 +51,9 @@
         android:text="Manage Accounts"
         android:layout_marginTop="20dp"
         android:padding="10dp" />
-
+    <TextView
+        android:id="@+id/textDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dashboard" />
 </LinearLayout>

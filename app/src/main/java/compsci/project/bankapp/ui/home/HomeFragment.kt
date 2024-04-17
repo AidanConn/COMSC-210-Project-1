@@ -1,5 +1,6 @@
 package compsci.project.bankapp.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,8 +28,12 @@ class   HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val username = arguments?.getString("username") ?: "User"
-        val homeViewModel = ViewModelProvider(this, HomeViewModelFactory(username)).get(HomeViewModel::class.java)
+        val name = arguments?.getString("name") ?: "User"
+        val checkBal = arguments?.getDouble("checkBal") ?: 0.00
+        val saveBal = arguments?.getDouble("saveBal") ?: 0.00
+        val checkID = arguments?.getString("checkID") ?: "N/A"
+        val saveID = arguments?.getString("saveID") ?: "N/A"
+        val homeViewModel = ViewModelProvider(this, HomeViewModelFactory(name)).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -37,6 +42,17 @@ class   HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        // Find the TextViews for checkBal, saveBal, checkID, and saveID by their IDs and set their text
+        val checkBalTextView: TextView = binding.checkingAccountBalance
+        val saveBalTextView: TextView = binding.savingsAccountBalance
+        val checkIDTextView: TextView = binding.checkingAccountNumber
+        val saveIDTextView: TextView = binding.savingsAccountNumber
+        checkBalTextView.text = "$$checkBal"
+        saveBalTextView.text = "$$saveBal"
+        checkIDTextView.text = "#$checkID"
+        saveIDTextView.text = "#$saveID"
+
         return root
     }
 

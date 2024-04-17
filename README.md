@@ -8,12 +8,12 @@ Checklist for tracking progress of version 1 of the project plan.
 - [ ] Set up development environment (Android Studio) targeting Android 10 (API level 29).
 
 ## User Authentication
-- [ ] Implement login functionality.
-  - [ ] Design and implement login screen.
-  - [ ] Integrate user authentication using Firebase Authentication.
+- [x] Implement login functionality.
+  - [x] Design and implement login screen.
+  - [x] Integrate user authentication using Firebase Authentication.
 
 ## Database Integration
-- [ ] Set up Firebase Firestore for data storage.
+- [x] Set up Firebase Firestore for data storage.
   - [ ] Define database schema (users, accounts, transactions).
 
 ## Core Features

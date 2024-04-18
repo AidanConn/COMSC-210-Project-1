@@ -1,26 +1,22 @@
 package compsci.project.bankapp.ui.home
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import compsci.project.bankapp.R
 import compsci.project.bankapp.databinding.FragmentHomeBinding
 import android.widget.Toast
+import compsci.project.bankapp.LoginActivity
 
-// Rest of your code...
-
-class   HomeFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -43,7 +39,6 @@ class   HomeFragment : Fragment() {
             textView.text = it
         }
 
-        // Find the TextViews for checkBal, saveBal, checkID, and saveID by their IDs and set their text
         val checkBalTextView: TextView = binding.checkingAccountBalance
         val saveBalTextView: TextView = binding.savingsAccountBalance
         val checkIDTextView: TextView = binding.checkingAccountNumber
@@ -53,31 +48,36 @@ class   HomeFragment : Fragment() {
         checkIDTextView.text = "#$checkID"
         saveIDTextView.text = "#$saveID"
 
+        // Inflate the Button
+        val logoutButton: Button = root.findViewById(R.id.logoutButton)
+
+        logoutButton.setOnClickListener {
+            logout()
+        }
+
         return root
+    }
+
+    private fun logout() {
+        // Implement logout functionality here
+        // For example, navigate to the login screen
+        Toast.makeText(context, "Logout button clicked", Toast.LENGTH_SHORT).show()
+
+        // Create an intent to start the login activity
+        val intent = Intent(activity, LoginActivity::class.java)
+
+        // Set the flag to clear the back stack
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        // Start the login activity
+        startActivity(intent)
+
+        // Finish the current activity (optional)
+        activity?.finish()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Find the CardViews by their IDs
-        val checkingAccountCard: CardView = view.findViewById(R.id.checking_account_card)
-        val savingsAccountCard: CardView = view.findViewById(R.id.savings_account_card)
-
-        // Set onClickListeners to the CardViews
-        checkingAccountCard.setOnClickListener {
-            // Handle the click event for the checking account card
-            // Show a toast message
-            Toast.makeText(context, "Checking Account Clicked", Toast.LENGTH_SHORT).show()
-        }
-
-        savingsAccountCard.setOnClickListener {
-            // Handle the click event for the savings account card
-            // Show a toast message
-            Toast.makeText(context, "Savings Account Clicked", Toast.LENGTH_SHORT).show()
-        }
     }
 }

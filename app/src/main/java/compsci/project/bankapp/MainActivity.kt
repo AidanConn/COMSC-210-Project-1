@@ -1,31 +1,33 @@
 package compsci.project.bankapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import compsci.project.bankapp.databinding.ActivityMainBinding
-import compsci.project.bankapp.ui.home.HomeFragment
-import androidx.navigation.ui.setupWithNavController
-import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
     private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
+
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance()
@@ -44,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "Check Bal: $checkBal")
         Log.d(TAG, "Save Bal: $saveBal")
 
-
         // Get the NavController
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
@@ -62,5 +63,8 @@ class MainActivity : AppCompatActivity() {
         // Show the navigation with the NavController
         navView.setupWithNavController(navController)
 
+
+        }
     }
-}
+
+

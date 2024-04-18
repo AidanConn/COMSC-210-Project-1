@@ -20,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var rememberMe: CheckBox
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var forgotPassword: Button
+
 
     private val TAG = "LoginActivity"
 
@@ -49,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
         password = findViewById(R.id.password)
         login = findViewById(R.id.login)
         rememberMe = findViewById(R.id.rememberMe)
+        forgotPassword = findViewById(R.id.forgotPassword)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
@@ -85,6 +88,28 @@ class LoginActivity : AppCompatActivity() {
                     }
             }
         }
+
+        forgotPassword.setOnClickListener {
+            val email = username.text.toString()
+
+            if (email.isEmpty()) {
+                Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show()
+            } else {
+                auth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "Email sent.")
+                            Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Log.w(TAG, "Failed to send password reset email.", task.exception)
+                            Toast.makeText(this, "Failed to send password reset email", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            }
+        }
+
+
+
     }
 
     private fun retrieveUserDetails(email: String) {

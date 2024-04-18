@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
     private fun logout() {
         // Implement logout functionality here
         // For example, navigate to the login screen
-        Toast.makeText(context, "Logout button clicked", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
 
         // Create an intent to start the login activity
         val intent = Intent(activity, LoginActivity::class.java)
